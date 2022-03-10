@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<int> merge(vector<int> larr, vector<int> rarr) {
-    vector<int> result(larr.size()+rarr.size());
+    vector<int> result(larr.size() + rarr.size());
     unsigned i = 0;
     unsigned j = 0;
     unsigned k = 0;
@@ -49,21 +49,21 @@ vector<int> merge_sort(vector<int> arr) {
 }
 
 int main() {
-	int size = 0, num = 0;
-	vector<int> nums;
+    int size = 0, num = 0;
+    vector<int> nums;
 
-	cout << "Enter the number of elements in array : ";
-	cin >> size;
+    cout << "Enter the number of elements in array : ";
+    cin >> size;
 
-	for (int i = 0; i < size; i++) {
-		cout << "Enter the next number : ";
-		cin >> num;
-		nums.push_back(num);
-	}
+    for (int i = 0; i < size; i++) {
+        cout << "Enter the next number : ";
+        cin >> num;
+        nums.push_back(num);
+    }
 
-	nums = merge_sort(nums);
-	cout << "The sorted array is : " << endl;
-	for (const int i : nums) { cout << i << "\t"; }
+    nums = merge_sort(nums);
+    cout << "The sorted array is : " << endl;
+    for (const int i : nums) { cout << i << "\t"; }
 
-	return 0;
+    return 0;
 }
