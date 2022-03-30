@@ -16,45 +16,61 @@ public:
 };
 
 void MyQueue::enq(const int x) {
-	if(r)
+	if (r + 1 < max) {
+		r++;
+		Queue[r] = x;
+		if (f == -1) { f++; }
+	}
+	else {
+		cout << "OverFlow!" << endl;
+	}
+}
+
+int MyQueue::deq() {
+	if (f != r) {
+		f++;
+		return Queue[f-1];
+	}
+	else if (f == 0) {
+		f = r = -1;
+		return Queue[0];
+	}
+	else {
+		cout << "UnderFlow!" << endl;
+		return -1;
+	}
+}
+
+void MyQueue::display() {
+	for (int i = f; i <= r; i++) {
+		cout << Queue[i] << '\t';
+	}
+	cout << endl;
 }
 
 void menu() {
-	int max, choice, temp, temp2;
-	cout << "Enter the max size of the stack : ";
+	int max, choice, temp;
+	cout << "Enter the max size of the queue : ";
 	cin >> max;
-	MyStack s(max);
+	MyQueue s(max);
 	while (true) {
-		cout << "\n1. Push\t\t2. Pop\t\t3. Peep\t\t4. Change\t\t5. Display\t\t6. Exit" << endl;
+		cout << "\n1. EnQueue\t\t2. DeQueue\t\t3. Display\t\t4. Exit" << endl;
 		cin >> choice;
 		switch (choice)
 		{
 		case 1:
 			cout << "Enter value to push : ";
 			cin >> temp;
-			s.push(temp);
+			s.enq(temp);
 			break;
 		case 2:
-			temp = s.pop();
+			temp = s.deq();
 			if (temp != -1) { cout << temp << endl; }
 			break;
 		case 3:
-			cout << "Enter index to peep : ";
-			cin >> temp;
-			temp2 = s.peep(temp);
-			if (temp2 != -1) { cout << temp2 << endl; }
-			break;
-		case 4:
-			cout << "Enter index to change : ";
-			cin >> temp;
-			cout << "Enter new value : ";
-			cin >> temp2;
-			s.change(temp2, temp);
-			break;
-		case 5:
 			s.display();
 			break;
-		case 6:
+		case 4:
 			exit(0);
 		default:
 			cout << "Enter a correct choice" << endl;
