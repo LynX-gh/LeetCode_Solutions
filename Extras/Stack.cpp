@@ -102,6 +102,7 @@ void menu() {
 		default:
 			cout << "Enter a correct choice" << endl;
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 }

@@ -16,7 +16,41 @@ public:
 };
 
 void MyQueue::enq(const int x) {
+<<<<<<< Updated upstream
 	if(r)
+=======
+	if (r + 1 < max) {
+		r++;
+		Queue[r] = x;
+		if (f == -1) { f++; }
+	}
+	else {
+		cout << "OverFlow!" << endl;
+	}
+}
+
+int MyQueue::deq() {
+	if (f != r) {
+		f++;
+		return Queue[f-1];
+	}
+	else if (f == 0) {
+		f = r = -1;
+		return Queue[0];
+	}
+	else {
+		cout << "UnderFlow!" << endl;
+		return -1;
+	}
+}
+
+void MyQueue::display() {
+	cout << "Queue";
+	for (int i = f; i <= r; i++) {
+		cout << " -> " << Queue[i];
+	}
+	cout << endl;
+>>>>>>> Stashed changes
 }
 
 void menu() {
@@ -59,6 +93,7 @@ void menu() {
 		default:
 			cout << "Enter a correct choice" << endl;
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 }
