@@ -42,8 +42,9 @@ int MyQueue::deq() {
 }
 
 void MyQueue::display() {
+	cout << "Queue";
 	for (int i = f; i <= r; i++) {
-		cout << Queue[i] << '\t';
+		cout << " -> " << Queue[i];
 	}
 	cout << endl;
 }
@@ -75,6 +76,7 @@ void menu() {
 		default:
 			cout << "Enter a correct choice" << endl;
 			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 }
