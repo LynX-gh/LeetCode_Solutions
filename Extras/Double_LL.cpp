@@ -2,28 +2,31 @@
 
 using namespace std;
 
+template<typename T>
 class ListNode {
 public:
-	int val;
+	T val;
 	ListNode* prev;
 	ListNode* next;
-	ListNode(int v, ListNode* ptr1, ListNode* ptr2) :val(v), prev(ptr1), next(ptr2) {}
+	ListNode(T v, ListNode* ptr1, ListNode* ptr2) :val(v), prev(ptr1), next(ptr2) {}
 };
 
+template<typename T>
 class MyDLL {
-	ListNode* head;
-	ListNode* end;
+	ListNode<T>* head;
+	ListNode<T>* end;
 public:
 	MyDLL() :head(nullptr), end(nullptr) {}
-	void insert(const int);
-	void insend(const int);
+	void insert(const T);
+	void insend(const T);
 	void del();
-	void del_before(const int);
+	void del_before(const T);
 	void display();
 };
 
-void MyDLL::insert(const int x) {
-	ListNode* n = new ListNode(x, nullptr, head);
+template<typename T>
+void MyDLL<T>::insert(const T x) {
+	ListNode<T>* n = new ListNode<T>(x, nullptr, head);
 	if (end) {
 		head->prev = n;
 		head = n;
@@ -33,8 +36,9 @@ void MyDLL::insert(const int x) {
 	}
 }
 
-void MyDLL::insend(const int x) {
-	ListNode* n = new ListNode(x, end, nullptr);
+template<typename T>
+void MyDLL<T>::insend(const T x) {
+	ListNode<T>* n = new ListNode<T>(x, end, nullptr);
 	if (head) {
 		end->next = n;
 		end = n;
@@ -44,13 +48,14 @@ void MyDLL::insend(const int x) {
 	}
 }
 
-void MyDLL::del() {
+template<typename T>
+void MyDLL<T>::del() {
 	if (end && head == end) {
 		delete head;
 		head = end = nullptr;
 	}
 	else if (end) {
-		ListNode* temp = end;
+		ListNode<T>* temp = end;
 		end = end->prev;
 		end->next = nullptr;
 		delete temp;
@@ -60,7 +65,8 @@ void MyDLL::del() {
 	}
 }
 
-void MyDLL::del_before(const int pos) {
+template<typename T>
+void MyDLL<T>::del_before(const T pos) {
 	if (head == nullptr || head == end || head->val == pos) {
 		cout << "UnderFlow!" << endl;
 	}
@@ -68,11 +74,11 @@ void MyDLL::del_before(const int pos) {
 		del();
 	}
 	else {
-		ListNode* temp = head->next->next;
+		ListNode<T>* temp = head->next->next;
 
 		while (temp) {
 			if (temp->val == pos) {
-				ListNode* temp2 = temp->prev;
+				ListNode<T>* temp2 = temp->prev;
 				temp->prev = temp2->prev;
 				temp2->prev->next = temp;
 				delete temp2;
@@ -84,8 +90,9 @@ void MyDLL::del_before(const int pos) {
 	}
 }
 
-void MyDLL::display() {
-	ListNode* temp = head;
+template<typename T>
+void MyDLL<T>::display() {
+	ListNode<T>* temp = head;
 	cout << "Linked List";
 	while (temp) {
 		cout << " -> " << temp->val;
@@ -96,7 +103,7 @@ void MyDLL::display() {
 
 void menu() {
 	int choice, temp;
-	MyDLL sll;
+	MyDLL<int> sll;
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\n3. Delete\t\t4. Delete Before\n5. Display\t\t6. Exit" << endl;
 		cin >> choice;
