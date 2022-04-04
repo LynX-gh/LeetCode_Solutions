@@ -133,9 +133,11 @@ void MySLL<T>::display() {
 	cout << endl;
 }
 
+template<typename T>
 void menu() {
-	int choice, temp;
-	MySLL<int> sll;
+	int choice;
+	T temp;
+	MySLL<T> sll;
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\t\t3. Insord\n4. Delete First\t\t5. Delete After\t\t6. Delete Before\n7. Display\t\t8. Exit" << endl;
 		cin >> choice;
@@ -183,5 +185,5 @@ void menu() {
 }
 
 int main() {
-	menu();
+	menu<int>();
 }
