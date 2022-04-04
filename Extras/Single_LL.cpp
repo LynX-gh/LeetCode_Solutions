@@ -2,35 +2,39 @@
 
 using namespace std;
 
+template<typename T>
 class ListNode {
 public:
-	int val;
+	T val;
 	ListNode* next;
-	ListNode(int v, ListNode* ptr) :val(v), next(ptr) {}
+	ListNode(T v, ListNode* ptr) :val(v), next(ptr) {}
 };
 
+template<typename T>
 class MySLL {
-	ListNode* head;
+	ListNode<T>* head;
 public:
 	MySLL() :head(nullptr) {}
-	void insert(const int);
-	void insend(const int);
-	void insord(const int);
+	void insert(const T);
+	void insend(const T);
+	void insord(const T);
 	void del();
-	void del_after(const int);
-	void del_before(const int);
+	void del_after(const T);
+	void del_before(const T);
 	void display();
 };
 
-void MySLL::insert(const int x) {
-	ListNode* n = new ListNode(x, head);
+template<typename T>
+void MySLL<T>::insert(const T x) {
+	ListNode<T>* n = new ListNode<T>(x, head);
 
 	head = n;
 }
 
-void MySLL::insend(const int x) {
-	ListNode* n = new ListNode(x, nullptr);
-	ListNode* temp = head;
+template<typename T>
+void MySLL<T>::insend(const T x) {
+	ListNode<T>* n = new ListNode<T>(x, nullptr);
+	ListNode<T>* temp = head;
 
 	while (temp->next) {
 		temp = temp->next;
@@ -38,29 +42,31 @@ void MySLL::insend(const int x) {
 	temp->next = n;
 }
 
-void MySLL::insord(const int x) {
+template<typename T>
+void MySLL<T>::insord(const T x) {
 	if (head == nullptr || head->val > x) {
 		insert(x);
 	}
 	else {
-		ListNode* temp = head;
+		ListNode<T>* temp = head;
 
 		while (temp->next) {
 			if (temp->next->val > x) {
-				ListNode* n = new ListNode(x, temp->next);
+				ListNode<T>* n = new ListNode<T>(x, temp->next);
 				temp->next = n;
 				return;
 			}
 			temp = temp->next;
 		}
-		ListNode* n = new ListNode(x, nullptr);
+		ListNode<T>* n = new ListNode<T>(x, nullptr);
 		temp->next = n;
 	}
 }
 
-void MySLL::del() {
+template<typename T>
+void MySLL<T>::del() {
 	if (head) {
-		ListNode* temp = head;
+		ListNode<T>* temp = head;
 		head = head->next;
 		delete temp;
 	}
@@ -69,17 +75,18 @@ void MySLL::del() {
 	}
 }
 
-void MySLL::del_after(const int pos) {
+template<typename T>
+void MySLL<T>::del_after(const T pos) {
 	if (head == nullptr || head->next == nullptr) {
 		cout << "UnderFlow!" << endl;
 		return;
 	}
 	else {
-		ListNode* temp = head;
+		ListNode<T>* temp = head;
 
 		while (temp->next) {
 			if (temp->val == pos) {
-				ListNode* temp2 = temp->next;
+				ListNode<T>* temp2 = temp->next;
 				temp->next = temp2->next;
 				delete temp2;
 				return;
@@ -90,7 +97,8 @@ void MySLL::del_after(const int pos) {
 	}
 }
 
-void MySLL::del_before(const int pos) {
+template<typename T>
+void MySLL<T>::del_before(const T pos) {
 	if (head == nullptr || head->next == nullptr || head->val == pos) {
 		cout << "UnderFlow!" << endl;
 	}
@@ -98,11 +106,11 @@ void MySLL::del_before(const int pos) {
 		del();
 	}
 	else {
-		ListNode* temp = head->next;
+		ListNode<T>* temp = head->next;
 
 		while (temp->next->next != nullptr){
 			if (temp->next->next->val == pos) {
-				ListNode* temp2 = temp->next;
+				ListNode<T>* temp2 = temp->next;
 				temp->next = temp2->next;
 				delete temp2;
 				return;
@@ -113,8 +121,9 @@ void MySLL::del_before(const int pos) {
 	}
 }
 
-void MySLL::display() {
-	ListNode* temp = head;
+template<typename T>
+void MySLL<T>::display() {
+	ListNode<T>* temp = head;
 
 	cout << "Linked List";
 	while (temp) {
@@ -126,7 +135,7 @@ void MySLL::display() {
 
 void menu() {
 	int choice, temp;
-	MySLL sll;
+	MySLL<int> sll;
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\t\t3. Insord\n4. Delete First\t\t5. Delete After\t\t6. Delete Before\n7. Display\t\t8. Exit" << endl;
 		cin >> choice;
