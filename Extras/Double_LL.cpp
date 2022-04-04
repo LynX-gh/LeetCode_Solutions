@@ -101,9 +101,11 @@ void MyDLL<T>::display() {
 	cout << endl;
 }
 
+template<typename T>
 void menu() {
-	int choice, temp;
-	MyDLL<int> sll;
+	int choice;
+	T temp;
+	MyDLL<T> sll;
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\n3. Delete\t\t4. Delete Before\n5. Display\t\t6. Exit" << endl;
 		cin >> choice;
@@ -141,5 +143,5 @@ void menu() {
 }
 
 int main() {
-	menu();
+	menu<int>();
 }
