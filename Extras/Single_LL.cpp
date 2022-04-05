@@ -2,7 +2,7 @@
 
 using namespace std;
 
-template<typename T>
+template<class T>
 class ListNode {
 public:
 	T val;
@@ -10,7 +10,7 @@ public:
 	ListNode(T v, ListNode* ptr) :val(v), next(ptr) {}
 };
 
-template<typename T>
+template<class T>
 class MySLL {
 	ListNode<T>* head;
 public:
@@ -24,105 +24,100 @@ public:
 	void display();
 };
 
-template<typename T>
-void MySLL<T>::insert(const T x) {
+template<class T> void MySLL<T>::insert(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, head);
 
 	head = n;
 }
 
-template<typename T>
-void MySLL<T>::insend(const T x) {
+template<class T> void MySLL<T>::insend(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, nullptr);
-	ListNode<T>* temp = head;
 
+	if (head == nullptr) {
+		head = n;
+		return;
+	}
+
+	ListNode<T>* temp = head;
 	while (temp->next) {
 		temp = temp->next;
 	}
 	temp->next = n;
 }
 
-template<typename T>
-void MySLL<T>::insord(const T x) {
+template<class T> void MySLL<T>::insord(const T x) {
 	if (head == nullptr || head->val > x) {
 		insert(x);
+		return;
 	}
-	else {
-		ListNode<T>* temp = head;
 
-		while (temp->next) {
-			if (temp->next->val > x) {
-				ListNode<T>* n = new ListNode<T>(x, temp->next);
-				temp->next = n;
-				return;
-			}
-			temp = temp->next;
+	ListNode<T>* temp = head;
+	while (temp->next) {
+		if (temp->next->val > x) {
+			ListNode<T>* n = new ListNode<T>(x, temp->next);
+			temp->next = n;
+			return;
 		}
-		ListNode<T>* n = new ListNode<T>(x, nullptr);
-		temp->next = n;
+		temp = temp->next;
 	}
+	ListNode<T>* n = new ListNode<T>(x, nullptr);
+	temp->next = n;
 }
 
-template<typename T>
-void MySLL<T>::del() {
-	if (head) {
-		ListNode<T>* temp = head;
-		head = head->next;
-		delete temp;
-	}
-	else {
+template<class T> void MySLL<T>::del() {
+	if (head == nullptr) {
 		cout << "UnderFlow!" << endl;
+		return;
 	}
+
+	ListNode<T>* temp = head;
+	head = head->next;
+	delete temp;
 }
 
-template<typename T>
-void MySLL<T>::del_after(const T pos) {
+template<class T> void MySLL<T>::del_after(const T pos) {
 	if (head == nullptr || head->next == nullptr) {
 		cout << "UnderFlow!" << endl;
 		return;
 	}
-	else {
-		ListNode<T>* temp = head;
 
-		while (temp->next) {
-			if (temp->val == pos) {
-				ListNode<T>* temp2 = temp->next;
-				temp->next = temp2->next;
-				delete temp2;
-				return;
-			}
-			temp = temp->next;
+	ListNode<T>* temp = head;
+	while (temp->next) {
+		if (temp->val == pos) {
+			ListNode<T>* temp2 = temp->next;
+			temp->next = temp2->next;
+			delete temp2;
+			return;
 		}
-		cout << "Element Not Found" << endl;
+		temp = temp->next;
 	}
+	cout << "Element Not Found" << endl;
 }
 
-template<typename T>
-void MySLL<T>::del_before(const T pos) {
+template<class T> void MySLL<T>::del_before(const T pos) {
 	if (head == nullptr || head->next == nullptr || head->val == pos) {
 		cout << "UnderFlow!" << endl;
+		return;
 	}
-	else if (head->next->val == pos) {
+	if (head->next->val == pos) {
 		del();
+		return;
 	}
-	else {
-		ListNode<T>* temp = head->next;
 
-		while (temp->next->next != nullptr){
-			if (temp->next->next->val == pos) {
-				ListNode<T>* temp2 = temp->next;
-				temp->next = temp2->next;
-				delete temp2;
-				return;
-			}
-			temp = temp->next;
+	ListNode<T>* temp = head->next;
+	while (temp->next->next != nullptr){
+		if (temp->next->next->val == pos) {
+			ListNode<T>* temp2 = temp->next;
+			temp->next = temp2->next;
+			delete temp2;
+			return;
 		}
-		cout << "Element Not Found" << endl;
+		temp = temp->next;
 	}
+	cout << "Element Not Found" << endl;
 }
 
-template<typename T>
-void MySLL<T>::display() {
+template<class T> void MySLL<T>::display() {
 	ListNode<T>* temp = head;
 
 	cout << "Linked List";
@@ -133,11 +128,11 @@ void MySLL<T>::display() {
 	cout << endl;
 }
 
-template<typename T>
-void menu() {
+template<class T> void menu() {
 	int choice;
 	T temp;
 	MySLL<T> sll;
+
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\t\t3. Insord\n4. Delete First\t\t5. Delete After\t\t6. Delete Before\n7. Display\t\t8. Exit" << endl;
 		cin >> choice;

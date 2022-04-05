@@ -24,74 +24,74 @@ public:
 	void display();
 };
 
-template<typename T>
-void MyDLL<T>::insert(const T x) {
+template<typename T> void MyDLL<T>::insert(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, nullptr, head);
-	if (end) {
-		head->prev = n;
-		head = n;
-	}
-	else {
+
+	if (end == nullptr) {
 		head = end = n;
+		return;
 	}
+
+	head->prev = n;
+	head = n;
 }
 
-template<typename T>
-void MyDLL<T>::insend(const T x) {
+template<typename T> void MyDLL<T>::insend(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, end, nullptr);
-	if (head) {
-		end->next = n;
-		end = n;
-	}
-	else {
+
+	if (head == nullptr) {
 		end = head = n;
+		return;
 	}
+
+	end->next = n;
+	end = n;
 }
 
-template<typename T>
-void MyDLL<T>::del() {
-	if (end && head == end) {
+template<typename T> void MyDLL<T>::del() {
+	if (end == nullptr) {
+		cout << "UnderFlow!" << endl;
+		return;
+	}
+
+	if (head == end) {
 		delete head;
 		head = end = nullptr;
+		return;
 	}
-	else if (end) {
-		ListNode<T>* temp = end;
-		end = end->prev;
-		end->next = nullptr;
-		delete temp;
-	}
-	else {
-		cout << "UnderFlow!" << endl;
-	}
+
+	ListNode<T>* temp = end;
+	end = end->prev;
+	end->next = nullptr;
+	delete temp;
 }
 
-template<typename T>
-void MyDLL<T>::del_before(const T pos) {
+template<typename T> void MyDLL<T>::del_before(const T pos) {
 	if (head == nullptr || head == end || head->val == pos) {
 		cout << "UnderFlow!" << endl;
+		return;
 	}
-	else if (head->next->val == pos) {
-		del();
-	}
-	else {
-		ListNode<T>* temp = head->next->next;
 
-		while (temp) {
-			if (temp->val == pos) {
-				ListNode<T>* temp2 = temp->prev;
-				temp->prev = temp2->prev;
-				temp2->prev->next = temp;
-				delete temp2;
-				return;
-			}
-			temp = temp->next;
-		}
-		cout << "Element Not Found!" << endl;
+	if (head->next->val == pos) {
+		del();
+		return;
 	}
+
+	ListNode<T>* temp = head->next->next;
+	while (temp) {
+		if (temp->val == pos) {
+			ListNode<T>* temp2 = temp->prev;
+			temp->prev = temp2->prev;
+			temp2->prev->next = temp;
+			delete temp2;
+			return;
+		}
+		temp = temp->next;
+	}
+	cout << "Element Not Found!" << endl;
 }
 
-template<typename T>
-void MyDLL<T>::display() {
+template<typename T> void MyDLL<T>::display() {
 	ListNode<T>* temp = head;
 	cout << "Linked List";
 	while (temp) {
@@ -101,8 +101,7 @@ void MyDLL<T>::display() {
 	cout << endl;
 }
 
-template<typename T>
-void menu() {
+template<typename T> void menu() {
 	int choice;
 	T temp;
 	MyDLL<T> sll;
