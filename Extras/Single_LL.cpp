@@ -21,7 +21,7 @@ public:
 	void del();
 	void del_after(const T);
 	void del_before(const T);
-	void display();
+	template<typename U> friend ostream& operator<<(ostream&, const MySLL<U>&);
 };
 
 template<class T> void MySLL<T>::insert(const T x) {
@@ -117,15 +117,16 @@ template<class T> void MySLL<T>::del_before(const T pos) {
 	cout << "Element Not Found" << endl;
 }
 
-template<class T> void MySLL<T>::display() {
-	ListNode<T>* temp = head;
+template<class U> ostream& operator<<(ostream& os, const MySLL<U>& sll) {
+	ListNode<U>* temp = sll.head;
 
-	cout << "Linked List";
+	os << "Linked List";
 	while (temp) {
-		cout << " -> " << temp->val;
+		os << " -> " << temp->val;
 		temp = temp->next;
 	}
-	cout << endl;
+	os << endl;
+	return os;
 }
 
 template<class T> void menu() {
@@ -167,7 +168,7 @@ template<class T> void menu() {
 			sll.del_before(temp);
 			break;
 		case 7:
-			sll.display();
+			cout << sll;
 			break;
 		case 8:
 			exit(0);

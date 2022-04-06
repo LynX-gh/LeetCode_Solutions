@@ -21,7 +21,7 @@ public:
 	void insend(const T);
 	void del();
 	void del_before(const T);
-	void display();
+	template<typename U> friend ostream& operator<<(ostream&, const MyDLL<U>&);
 };
 
 template<typename T> void MyDLL<T>::insert(const T x) {
@@ -91,20 +91,22 @@ template<typename T> void MyDLL<T>::del_before(const T pos) {
 	cout << "Element Not Found!" << endl;
 }
 
-template<typename T> void MyDLL<T>::display() {
-	ListNode<T>* temp = head;
-	cout << "Linked List";
+template<class T> ostream& operator<<(ostream& os, const MyDLL<T>& dll) {
+	ListNode<T>* temp = dll.head;
+
+	os << "Linked List";
 	while (temp) {
-		cout << " -> " << temp->val;
+		os << " -> " << temp->val;
 		temp = temp->next;
 	}
-	cout << endl;
+	os << endl;
+	return os;
 }
 
 template<typename T> void menu() {
 	int choice;
 	T temp;
-	MyDLL<T> sll;
+	MyDLL<T> dll;
 	while (true) {
 		cout << "\n1. Insert\t\t2. Insend\n3. Delete\t\t4. Delete Before\n5. Display\t\t6. Exit" << endl;
 		cin >> choice;
@@ -113,23 +115,23 @@ template<typename T> void menu() {
 		case 1:
 			cout << "Enter value to insert : ";
 			cin >> temp;
-			sll.insert(temp);
+			dll.insert(temp);
 			break;
 		case 2:
 			cout << "Enter value to insert : ";
 			cin >> temp;
-			sll.insend(temp);
+			dll.insend(temp);
 			break;
 		case 3:
-			sll.del();
+			dll.del();
 			break;
 		case 4:
 			cout << "Enter the value to delete before : ";
 			cin >> temp;
-			sll.del_before(temp);
+			dll.del_before(temp);
 			break;
 		case 5:
-			sll.display();
+			cout << dll;
 			break;
 		case 6:
 			exit(0);
