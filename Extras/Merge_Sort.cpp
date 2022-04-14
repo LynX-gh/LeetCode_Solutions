@@ -5,9 +5,7 @@ using namespace std;
 
 vector<int> merge(vector<int> larr, vector<int> rarr) {
     vector<int> result(larr.size() + rarr.size());
-    unsigned i = 0;
-    unsigned j = 0;
-    unsigned k = 0;
+    unsigned int i = 0, j = 0, k = 0;
 
     while (i < larr.size() && j < rarr.size()) {
         if (larr[i] < rarr[j]) {
