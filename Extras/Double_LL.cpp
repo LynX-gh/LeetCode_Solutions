@@ -17,12 +17,23 @@ class MyDLL {
 	ListNode<T>* end;
 public:
 	MyDLL() :head(nullptr), end(nullptr) {}
+	~MyDLL();
 	void insert(const T);
 	void insend(const T);
 	void del();
 	void del_before(const T);
 	template<typename U> friend ostream& operator<<(ostream&, const MyDLL<U>&);
 };
+
+template<typename T>
+MyDLL<T>::~MyDLL() {
+	ListNode* temp;
+	while (head) {
+		temp = head;
+		head = head->next;
+		delete head;
+	}
+}
 
 template<typename T> void MyDLL<T>::insert(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, nullptr, head);

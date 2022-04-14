@@ -15,6 +15,7 @@ class MySLL {
 	ListNode<T>* head;
 public:
 	MySLL() :head(nullptr) {}
+	~MySLL();
 	void insert(const T);
 	void insend(const T);
 	void insord(const T);
@@ -23,6 +24,16 @@ public:
 	void del_before(const T);
 	template<typename U> friend ostream& operator<<(ostream&, const MySLL<U>&);
 };
+
+template<typename T>
+MySLL<T>::~MySLL() {
+	ListNode* temp;
+	while (head) {
+		temp = head;
+		head = head->next;
+		delete head;
+	}
+}
 
 template<class T> void MySLL<T>::insert(const T x) {
 	ListNode<T>* n = new ListNode<T>(x, head);
