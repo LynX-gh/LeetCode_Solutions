@@ -25,8 +25,7 @@ public:
 	template<typename U> friend ostream& operator<<(ostream&, const MySLL<U>&);
 };
 
-template<typename T>
-MySLL<T>::~MySLL() {
+template<typename T> MySLL<T>::~MySLL() {
 	ListNode* temp;
 	while (head) {
 		temp = head;

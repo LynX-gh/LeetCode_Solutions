@@ -11,8 +11,7 @@ public:
 	ListNode(T v, ListNode* ptr1, ListNode* ptr2) :val(v), prev(ptr1), next(ptr2) {}
 };
 
-template<typename T>
-class MyDLL {
+template<typename T> class MyDLL {
 	ListNode<T>* head;
 	ListNode<T>* end;
 public:
@@ -25,8 +24,7 @@ public:
 	template<typename U> friend ostream& operator<<(ostream&, const MyDLL<U>&);
 };
 
-template<typename T>
-MyDLL<T>::~MyDLL() {
+template<typename T> MyDLL<T>::~MyDLL() {
 	ListNode* temp;
 	while (head) {
 		temp = head;
