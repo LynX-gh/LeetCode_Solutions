@@ -7,11 +7,10 @@ using namespace std;
 
 class MyGraph {
 	int nodes;
-	vector<vector<int>> adj_matrix;
-	unordered_set<int> visited_dfs, visited_bfs;
-	queue<int> breadth;
+	vector<vector<bool>> adjMatrix;
+	unordered_set<int> visitedDfs, visitedBfs;
 public:
-	MyGraph(const int x) :nodes(x), adj_matrix(x, vector<int>(x, 0)) {}
+	MyGraph(const int x) :nodes(x), adjMatrix(x, vector<bool>(x)) {}
 	void input_edges();
 	void show_adj_matrix();
 	void dfs(const int);
@@ -24,33 +23,47 @@ void MyGraph::input_edges() {
 		for (int j = 0; j < nodes; j++) {
 			cout << "Edge from " << i << " to " << j << " exists? (1/0) : ";
 			cin >> input;
-			input ? adj_matrix[i][j] = 1 : adj_matrix[i][j] = 0;
+			input ? adjMatrix[i][j] = true : adjMatrix[i][j] = false;
 		}
 	}
 }
 
 void MyGraph::show_adj_matrix() {
 	cout << "Adjacent Matrix - " << endl;
-	for (const vector<int> i : adj_matrix) {
-		for (const int j : i) {
+	for (const vector<bool> i : adjMatrix) {
+		for (const bool j : i) {
 			cout << j << '\t';
 		}
 		cout << endl;
 	}
 }
 
-void MyGraph::dfs(const int edge) {
-	visited_dfs.insert(edge);
-	cout << edge << '\t';
+void MyGraph::dfs(const int start) {
+	visitedDfs.insert(start);
+	cout << start << '\t';
 	for (int i = 0; i < nodes; i++) {
-		if (adj_matrix[edge][i] && visited_dfs.find(i) == visited_dfs.end()) {
+		if (adjMatrix[start][i] && visitedDfs.find(i) == visitedDfs.end()) {
 			dfs(i);
 		}
 	}
 }
 
-void MyGraph::bfs(const int edge) {
-
+void MyGraph::bfs(const int start) {
+	queue<int> next;
+	next.push(start);
+	while (!next.empty()) {
+		int curEdge = next.front();
+		next.pop();
+		if (visitedBfs.find(curEdge) == visitedBfs.end()) {
+			visitedBfs.insert(curEdge);
+			cout << curEdge << "\t";
+			for (int i = 0; i < nodes; i++) {
+				if (adjMatrix[curEdge][i] && (visitedBfs.find(i) == visitedBfs.end())) {
+					next.push(i);
+				}
+			}
+		}
+	}
 }
 
 /*
@@ -96,6 +109,6 @@ int main() {
 	cin >> temp;
 	cout << "\nDFS Traversal - " << endl;
 	graph.dfs(temp);
-	cout << "\nBFS Traversal - " << endl;
+	cout << "\n\nBFS Traversal - " << endl;
 	graph.bfs(temp);
 }
