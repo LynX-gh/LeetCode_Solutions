@@ -1,5 +1,4 @@
 #include<iostream>
-#include<queue>
 
 using namespace std;
 
@@ -9,7 +8,7 @@ public:
 	T val;
 	TreeNode* left;
 	TreeNode* right;
-	TreeNode(const int x, TreeNode* ptr1, TreeNode* ptr2) : val(x), left(ptr1), right(ptr2) {}
+	TreeNode(const T x, TreeNode* ptr1, TreeNode* ptr2) : val(x), left(ptr1), right(ptr2) {}
 };
 
 template<typename T>
