@@ -1,5 +1,25 @@
 impl Solution {
     pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
+        let mut res = Vec::with_capacity(nums.len());
+        let mut negptr = 0;
+        let mut posptr = nums.len() - 1;
+        print!("{posptr} = {}", nums[posptr]);
+        while negptr <= posptr {
+            if nums[negptr].abs() > nums[posptr].abs() {
+                res.push(nums[posptr].pow(2));
+                posptr -= 1;
+            }
+            else {
+                res.push(nums[negptr].pow(2));
+                negptr += 1;
+            }
+        }
+        res
+    }
+}
+
+impl Solution {
+    pub fn sorted_squares(nums: Vec<i32>) -> Vec<i32> {
         if nums.len() < 2 {
             return vec!(nums[0].pow(2));
         }

@@ -1,30 +1,15 @@
 impl Solution {
     pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
-        if nums.len() == 0 {
-            return 0;
-        }
+        let mut res = 0;
+        let mut val_ptr = 0;
 
-        if nums.len() == 1 {
-            if nums[0] == val {
-                return 0;
-            }
-            else {
-                return 1;
+        for i in 0..nums.len() {
+            if nums[i] != val {
+                nums.swap(val_ptr, i);
+                val_ptr += 1;
+                res += 1;
             }
         }
-
-        let mut startptr = 0;
-        let mut endptr = nums.len()-1;
-
-        while startptr <= endptr && endptr < nums.len() {
-            if nums[startptr] == val {
-                nums[startptr] = nums[endptr];
-                endptr -= 1;
-            }
-            else { 
-                startptr += 1;
-            }
-        }
-        (endptr + 1) as i32
+        res
     }
 }
