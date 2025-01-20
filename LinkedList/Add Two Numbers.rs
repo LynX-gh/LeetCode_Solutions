@@ -17,31 +17,32 @@
 
 impl Solution {
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        let mut res = Box::new(ListNode::new(0));
-        let mut ptr_res = &mut res;
-        let mut ptr_l1 = &l1;
-        let mut ptr_l2 = &l2;
-        let mut sum = 0;
         let mut carry = 0;
+        let mut sum = 0;
+        let mut res = Box::new(ListNode::new(0));
+        let mut res_ptr = &mut res;
+        let mut l1_ptr = &l1;
+        let mut l2_ptr = &l2;
 
-        while ptr_l1.is_some() || ptr_l2.is_some() || carry != 0 {
-            sum = match ptr_l1 {
-                Some(ptr) => {
-                    ptr_l1 = &ptr.next;
-                    ptr.val
+        while l1_ptr.is_some() || l2_ptr.is_some() || carry != 0 {
+            sum = match l1_ptr {
+                Some(x) => {
+                    l1_ptr = &x.next;
+                    x.val
                 },
-                None => 0
-            } + match ptr_l2 {
-                Some(ptr) => {
-                    ptr_l2 = &ptr.next;
-                    ptr.val
+                _ => 0,
+            } + match l2_ptr {
+                Some(x) => {
+                    l2_ptr = &x.next;
+                    x.val
                 },
-                None => 0
+                _ => 0,
             } + carry;
 
-            carry = sum/10;
-            ptr_res.next = Some(Box::new(ListNode::new(sum%10)));
-            ptr_res = ptr_res.next.as_mut().unwrap();
+            carry = sum / 10;
+
+            res_ptr.next = Some(Box::new(ListNode::new(sum % 10)));
+            res_ptr = res_ptr.next.as_mut().unwrap();
         }
         res.next
     }
