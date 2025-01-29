@@ -9,10 +9,11 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> res;
+    vector<double> averageOfLevels(TreeNode* root) {
+        vector<double> res;
         queue<TreeNode*> bfs;
 
         if(root != nullptr) {
@@ -22,20 +23,22 @@ public:
         while(!bfs.empty())
         {
             int sz = bfs.size();
-            vector<int> level;
+            double sum =0;
 
             for(int i=0;i<sz;i++)
             {
                 TreeNode* curr = bfs.front();
                 bfs.pop();
-                level.push_back(curr->val);
+                sum += curr->val;
 
                 if(curr->left)
                     bfs.push(curr->left);
                 if(curr->right)
                     bfs.push(curr->right);
             }
-            res.push_back(level);
+
+            double val = sum/sz;
+            res.push_back(val);
         }
         return res;
     }

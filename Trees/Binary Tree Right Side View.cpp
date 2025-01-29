@@ -9,33 +9,32 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
 class Solution {
 public:
-    vector<vector<int>> levelOrder(TreeNode* root) {
-        vector<vector<int>> res;
-        queue<TreeNode*> bfs;
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
 
-        if(root != nullptr) {
-            bfs.push(root);
+        if(root == nullptr) {
+            return res;
         }
 
-        while(!bfs.empty())
-        {
-            int sz = bfs.size();
-            vector<int> level;
-
-            for(int i=0;i<sz;i++)
-            {
+        queue<TreeNode*> bfs;
+        bfs.push(root);
+        
+        while(!bfs.empty()) {
+            res.push_back(bfs.front()->val);
+            for(int i = size(bfs); i > 0; i--){
                 TreeNode* curr = bfs.front();
                 bfs.pop();
-                level.push_back(curr->val);
 
-                if(curr->left)
-                    bfs.push(curr->left);
-                if(curr->right)
+                if(curr->right != nullptr) {
                     bfs.push(curr->right);
+                }
+                if(curr->left != nullptr) {
+                    bfs.push(curr->left);
+                }
             }
-            res.push_back(level);
         }
         return res;
     }
