@@ -1,3 +1,24 @@
+// DP
+
+impl Solution {
+    pub fn climb_stairs(n: i32) -> i32 {
+        if n == 0 { return 0; }
+        if n == 1 { return 1; } 
+        if n == 2 { return 2; }
+
+        let mut minus_one_step = 2;
+        let mut minus_two_step = 1;
+        let mut curr = 0;
+
+        for _ in 2..n {
+            curr = minus_one_step + minus_two_step;
+            minus_two_step = minus_one_step;
+            minus_one_step = curr;
+        }
+        curr
+    }
+}
+
 // Memoization Bottom Up
 use std::collections::HashMap;
 
