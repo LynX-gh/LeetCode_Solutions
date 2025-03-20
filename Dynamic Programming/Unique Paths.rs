@@ -23,6 +23,24 @@ impl Solution {
 
 // Top Down
 impl Solution {
+    pub fn unique_paths(m: i32, n: i32) -> i32 {
+        let ml = m as usize;
+        let nl = n as usize;
+
+        let mut dp = vec![vec![0; ml+1]; nl+1];
+        dp[0][1] = 1;
+
+        for i in 1..nl+1 {
+            for j in 1..ml+1 {
+                dp[i][j] = dp[i-1][j] + dp[i][j-1];
+            }
+        }
+        dp[nl][ml]
+    }
+}
+
+
+impl Solution {
     pub fn unique_paths(mut m: i32, mut n: i32) -> i32 {
         let m = m as usize;
         let n = n as usize;
