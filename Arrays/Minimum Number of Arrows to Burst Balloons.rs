@@ -1,3 +1,21 @@
+// Sort By Range End
+
+impl Solution {
+    pub fn find_min_arrow_shots(mut points: Vec<Vec<i32>>) -> i32 {
+        points.sort_unstable_by_key(|point| point[1]);
+
+        let mut cur = points[0][1];
+        let mut res = 1;
+        for pt in points {
+            if pt[0] > cur {
+                cur = pt[1];
+                res += 1;
+            }
+        }
+        res
+    }
+}
+
 // Descending
 
 impl Solution {
