@@ -1,3 +1,20 @@
+-- Write your PostgreSQL query statement below
+WITH last_row AS (
+    SELECT 
+        *
+        , LAG(recordDate) OVER (ORDER BY recordDate) as last_date
+        , LAG(temperature) OVER (ORDER BY recordDate) as last_temp
+    FROM
+        Weather
+)
+
+SELECT
+    id
+FROM 
+    last_row
+WHERE
+    last_date = recordDate - 1 AND temperature > last_temp
+
 # Write your MySQL query statement below
 -- Create a CTE to calculate the previous day's temperature and date
 WITH q1 AS (
